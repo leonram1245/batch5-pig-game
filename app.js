@@ -9,9 +9,11 @@ GAME RULES:
 
 */
 
-var holdScore, currentScore, activePlayer, gamePlaying, winningScore, lastDice;
+var holdScore, currentScore, activePlayer, gamePlaying, winningScore;
 var diceIMG = document.getElementById('dice');
 
+const p1 = document.querySelector('#name-0');
+const p2 = document.querySelector('#name-1');
 const p1HoldScore = document.getElementById('score-0');
 const p2HoldScore = document.getElementById('score-1');
 const p1CurScore = document.getElementById('current-0');
@@ -38,7 +40,6 @@ bntRoll.addEventListener("click", function(){
         }else{
             nextPlayer();
         }
-    lastDice = dice;
     }
 })
 
@@ -47,7 +48,13 @@ bntHold.addEventListener('click', function() {
         holdScore[activePlayer] += currentScore;
         document.querySelector('#score-'+ activePlayer).textContent = holdScore[activePlayer];
         if(holdScore[activePlayer] >= winningScore){
-            document.querySelector('#name-'+ activePlayer).textContent = 'Winner!';
+            var player;
+            if(activePlayer === 0) {
+                player = 'Player 1';
+            }else{
+                player = 'Player 2';
+            }
+            document.querySelector('#name-'+ activePlayer).textContent = 'Winner ' + player;
             document.querySelector('.player-'+ activePlayer + '-panel').classList.add('winner');
             document.querySelector('.player-'+ activePlayer + '-panel').classList.remove('active');
             gamePlaying = false;
@@ -93,4 +100,7 @@ function init() {
     p1Panel.classList.remove('active');
     p2Panel.classList.remove('active');
     p1Panel.classList.add('active');
+
+    p1.textContent = 'Player 1';
+    p2.textContent = 'Player 2'
 }
